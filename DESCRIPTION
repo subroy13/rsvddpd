@@ -28,3 +28,5 @@ Suggests:
     pcaMethods,
     RobRSVD
 VignetteBuilder: knitr
+URL: https://github.com/subroy13/rsvddpd
+BugReports: https://github.com/subroy13/rsvddpd/issues
