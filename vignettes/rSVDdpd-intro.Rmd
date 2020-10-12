@@ -1,8 +1,8 @@
 ---
-title: "RSVD-intro"
+title: "rSVDdpd-intro"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{RSVD-intro}
+  %\VignetteIndexEntry{rSVDdpd-intro}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -50,10 +50,10 @@ svd(X)
 
 All the singular values are now much different, being $101.4, 18.3$ and $1.14$. However, in practical cases, where $X$ actually represent a data matrix, this can pose a serious problem.
 
-On the other hand, using `Rsvd` function from `rsvddpd` package enables us a mitigate the effect of this outlier.
+On the other hand, using `rSVDdpd` function from `rsvddpd` package enables us a mitigate the effect of this outlier.
 
 ```{r}
-Rsvd(X, alpha = 0.3)
+rSVDdpd(X, alpha = 0.3)
 ```
 
 Since the function does some randomized initialization under the hood, the result might not be exactly same when you run the code again. However, you should get the singular values pretty close to the singular values of the original $X$ before we added the outlier.
@@ -62,7 +62,7 @@ Since the function does some randomized initialization under the hood, the resul
 
 # Theoretical Background
 
-Let us take a look at what `Rsvd` does under the hood. Before that, singular value decomposition (SVD) of a matrix $X$ is splitting it as; 
+Let us take a look at what `rSVDdpd` does under the hood. Before that, singular value decomposition (SVD) of a matrix $X$ is splitting it as; 
 
 $$X_{n\times p} = U_{n \times r} D_{r\times r}V_{p\times r}^T$$
 Here, $r$ is the rank of the matrix $X$, $D$ is a diagonal matrix with non-negative real entries, and $U, V$ are orthogonal matrices. Since, we usually observe data matrix $X$ with errors, the model ends up being $X = UDV^T + \epsilon$, where $\epsilon$ is the errors.
@@ -82,20 +82,20 @@ with respect to the unknowns $\lambda, a_i, b_j$ and $\sigma^2$, where $\phi(\cd
 
 ## Underflow and Overflow
 
-Because of the usage of standard normal density, and exponential functions, the usual algorithm suffers from underflow and overflow and the estimates tend to become `NAN` or `Inf` in some iterations for reasonably large or reasonably small values in the data matrix. To deal with this, `Rsvd` function first scales all elements of the data matrix to a suitable range, and then perform the robust SVD algorithm. Finally, the scaling factor can be adjusted to obtain the original singular values.
+Because of the usage of standard normal density, and exponential functions, the usual algorithm suffers from underflow and overflow and the estimates tend to become `NAN` or `Inf` in some iterations for reasonably large or reasonably small values in the data matrix. To deal with this, `rSVDdpd` function first scales all elements of the data matrix to a suitable range, and then perform the robust SVD algorithm. Finally, the scaling factor can be adjusted to obtain the original singular values.
 
 ```{r}
-Rsvd(X * 1e6, alpha  = 0.3)
-Rsvd(X * 1e-6, alpha = 0.3)
+rSVDdpd(X * 1e6, alpha  = 0.3)
+rSVDdpd(X * 1e-6, alpha = 0.3)
 ```
 
-As it can be seen, the function `Rsvd` handles the very large or very small elements nicely.
+As it can be seen, the function `rSVDdpd` handles the very large or very small elements nicely.
 
 ## Permutation Invariance
 
 ```{r}
 Y <- X[, c(3, 1, 2)]
-Rsvd(Y, alpha = 0.3)
+rSVDdpd(Y, alpha = 0.3)
 ```
 
 As expected, the singular values do not change when the columns of the data matrix is permuted, however, the singular vector permutes in the same manner of the permutation of the columns.
@@ -105,7 +105,7 @@ As expected, the singular values do not change when the columns of the data matr
 An important property of SVD is that the matrix corresponding to the left and right singular vectors are orthogonal matrices. A sanity check of this property can also be verified very easily.
 
 ```{r}
-crossprod(Rsvd(X, alpha = 0.3)$u)
+crossprod(rSVDdpd(X, alpha = 0.3)$u)
 ```
 
 As it seems, the off diagonal entries are very small values. This is ensured by introducing a Gram Schimdt Orthogonalization step between successive iterations of the algorithm.
@@ -113,14 +113,14 @@ As it seems, the off diagonal entries are very small values. This is ensured by 
 
 ## Effect of Robustness Parameter
 
-In presence of outliers with large deviation, the performance of `Rsvd` is fairly robust to the choice of $\alpha$, the robustness parameter. With $\alpha = 0$, `Rsvd` corresponds to usual `svd` function from `base` package. However, with increasing $\alpha$, the robustness increases, i.e. even a smaller deviation would not affect the singular values, while with higher $\alpha$, the variance of the estimators generally increase.
+In presence of outliers with large deviation, the performance of `rSVDdpd` is fairly robust to the choice of $\alpha$, the robustness parameter. With $\alpha = 0$, `rSVDdpd` corresponds to usual `svd` function from `base` package. However, with increasing $\alpha$, the robustness increases, i.e. even a smaller deviation would not affect the singular values, while with higher $\alpha$, the variance of the estimators generally increase.
 
 To demonstrate the effect of $\alpha$ on time complexity, `microbenchmark` package will be used. 
 
 ```{r}
-microbenchmark::microbenchmark(svd(X), Rsvd(X, alpha = 0), Rsvd(X, alpha = 0.25), 
-                               Rsvd(X, alpha = 0.5), Rsvd(X, alpha = 0.75), 
-                               Rsvd(X, alpha = 1), times = 30)
+microbenchmark::microbenchmark(svd(X), rSVDdpd(X, alpha = 0), rSVDdpd(X, alpha = 0.25), 
+                               rSVDdpd(X, alpha = 0.5), rSVDdpd(X, alpha = 0.75), 
+                               rSVDdpd(X, alpha = 1), times = 30)
 ```
 
 Therefore, the execution time slightly increases with higher $\alpha$.
@@ -159,10 +159,10 @@ res <- simSVD(trueSVD, svdfun = pcaMethods::robustSvd, B = 100, seed = 1234, out
 res
 ```
 
-`RobRSVD` package only provides the implementation of obtaining the first singular vector only. So instead of measuring performance of this, we compare `Rsvd` function's performance with the previous `svd` and `robustSvd` functions.
+`RobRSVD` package only provides the implementation of obtaining the first singular vector only. So instead of measuring performance of this, we compare `rSVDdpd` function's performance with the previous `svd` and `robustSvd` functions.
 
 ```{r results='hide'}
-res <- simSVD(trueSVD, svdfun = Rsvd, B = 100, seed = 1234, outlier = TRUE, out_value = 25, tau = 0.9, alpha = 0.25)
+res <- simSVD(trueSVD, svdfun = rSVDdpd, B = 100, seed = 1234, outlier = TRUE, out_value = 25, tau = 0.9, alpha = 0.25)
 ```
 
 ```{r}
@@ -173,22 +173,11 @@ res
 And with $\alpha = 0.75$, we have;
 
 ```{r results='hide'}
-res <- simSVD(trueSVD, svdfun = Rsvd, B = 100, seed = 1234, outlier = TRUE, out_value = 25, tau = 0.9, alpha = 0.75)
+res <- simSVD(trueSVD, svdfun = rSVDdpd, B = 100, seed = 1234, outlier = TRUE, out_value = 25, tau = 0.9, alpha = 0.75)
 ```
 
 ```{r}
 res
 ```
 
-As it can be seen, the bias and MSE are much lesser in `Rsvd` algorithm.
-
-
-
-
-
-
-
-
-
-
-
+As it can be seen, the bias and MSE are much lesser in `rSVDdpd` algorithm.

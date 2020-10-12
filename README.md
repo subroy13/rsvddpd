@@ -14,7 +14,7 @@ robust way in presence of outliers.
 
 There are 2 primary functions in the package.
 
-  - Rsvd - Performs the robust SVD of a numeric matrix \(X\).
+  - rSVDdpd - Performs the robust SVD of a numeric matrix \(X\).
   - simSVD - Simulates different scenarios to compare performances of
     SVD algorithms under outlier contamination.
 
@@ -95,28 +95,28 @@ svd(X)
 Note that, the first singular value changes drastically, being \(107\),
 while second and third singular values \(36.1\) and \(2.2\)
 respectively. However, such error is very common in practice, and can
-pose serious problem in many statistical estimation techniques. `Rsvd`
-solves the problem as shown in the following code.
+pose serious problem in many statistical estimation techniques.
+`rSVDdpd` solves the problem as shown in the following code.
 
 ``` r
-Rsvd(X, alpha = 0.3)
+rSVDdpd(X, alpha = 0.3)
 #> $d
-#> [1] 5.355988e+01 2.358919e+00 1.491252e-01 6.679339e-11
+#> [1] 5.355987e+01 2.358922e+00 1.490800e-01 6.669382e-11
 #> 
 #> $u
 #>           [,1]       [,2]       [,3]          [,4]
-#> [1,] 0.4426835 -0.7124329  0.4743859  2.672615e-01
-#> [2,] 0.4810553 -0.2588261 -0.8376126  2.695323e-07
-#> [3,] 0.5163460  0.1804024  0.2408010 -8.017834e-01
-#> [4,] 0.5531762  0.6268200  0.1240085  5.345228e-01
+#> [1,] 0.4426840 -0.7124313  0.4743877  2.672615e-01
+#> [2,] 0.4810534 -0.2588296 -0.8376126  2.693261e-07
+#> [3,] 0.5163466  0.1804030  0.2407992 -8.017834e-01
+#> [4,] 0.5531768  0.6268202  0.1240050  5.345228e-01
 #> 
 #> $v
 #>            [,1]        [,2]       [,3]          [,4]
-#> [1,] 0.09646643  0.77032336  0.2174771 -5.826892e-01
-#> [2,] 0.24532587  0.49133609  0.2200081  7.029404e-01
-#> [3,] 0.39606259  0.20320659 -0.8954560  5.540914e-07
-#> [4,] 0.54304952 -0.06663848  0.2250699  2.219376e-01
-#> [5,] 0.69191118 -0.34562577  0.2276009 -3.421867e-01
+#> [1,] 0.09646647  0.77032225  0.2174810 -5.826532e-01
+#> [2,] 0.24532593  0.49133498  0.2200105  7.028018e-01
+#> [3,] 0.39606221  0.20321119 -0.8954552  5.534492e-07
+#> [4,] 0.54304962 -0.06663959  0.2250694  2.222097e-01
+#> [5,] 0.69191130 -0.34562688  0.2275988 -3.423562e-01
 ```
 
 # Authors

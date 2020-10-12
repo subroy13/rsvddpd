@@ -21,7 +21,7 @@ The `R` package `rsvddpd` is an acronym for Robust Singular Value Decomposition 
 
 There are 2 primary functions in the package.
 
-* Rsvd - Performs the robust SVD of a numeric matrix $X$.
+* rSVDdpd - Performs the robust SVD of a numeric matrix $X$.
 * simSVD - Simulates different scenarios to compare performances of SVD algorithms under outlier contamination.
 
 
@@ -61,10 +61,10 @@ X[2, 3] <- 100
 svd(X)
 ```
 
-Note that, the first singular value changes drastically, being $107$, while second and third singular values $36.1$ and $2.2$ respectively. However, such error is very common in practice, and can pose serious problem in many statistical estimation techniques. `Rsvd` solves the problem as shown in the following code.
+Note that, the first singular value changes drastically, being $107$, while second and third singular values $36.1$ and $2.2$ respectively. However, such error is very common in practice, and can pose serious problem in many statistical estimation techniques. `rSVDdpd` solves the problem as shown in the following code.
 
 ```{r}
-Rsvd(X, alpha = 0.3)
+rSVDdpd(X, alpha = 0.3)
 ```
 
 # Authors

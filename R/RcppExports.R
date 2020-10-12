@@ -3,7 +3,7 @@
 
 #' Robust Singular Value Decomposition using Density Power Divergence
 #'
-#' \code{Rsvd} returns the singular value decomposition of a matrix with robust
+#' \code{rSVDdpd} returns the singular value decomposition of a matrix with robust
 #' singular values in presence of outliers
 #' 
 #' @param X \code{matrix}, whose singular value decomposition is required
@@ -42,8 +42,8 @@
 #' @export
 #' @examples
 #' X = matrix(1:20, nrow = 4, ncol = 5)
-#' Rsvd(X, alpha = 0.3)
-Rsvd <- function(X, alpha, nd = NA_integer_, tol = 1e-4, eps = 1e-4, maxiter = 100L) {
-    .Call(`_rsvddpd_Rsvd`, X, alpha, nd, tol, eps, maxiter)
+#' rSVDdpd(X, alpha = 0.3)
+rSVDdpd <- function(X, alpha, nd = NA_integer_, tol = 1e-4, eps = 1e-4, maxiter = 100L) {
+    .Call(`_rsvddpd_rSVDdpd`, X, alpha, nd, tol, eps, maxiter)
 }
 

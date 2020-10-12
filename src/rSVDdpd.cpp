@@ -5,7 +5,7 @@
 
 //' Robust Singular Value Decomposition using Density Power Divergence
 //'
-//' \code{Rsvd} returns the singular value decomposition of a matrix with robust
+//' \code{rSVDdpd} returns the singular value decomposition of a matrix with robust
 //' singular values in presence of outliers
 //' 
 //' @param X \code{matrix}, whose singular value decomposition is required
@@ -44,9 +44,9 @@
 //' @export
 //' @examples
 //' X = matrix(1:20, nrow = 4, ncol = 5)
-//' Rsvd(X, alpha = 0.3)
+//' rSVDdpd(X, alpha = 0.3)
 // [[Rcpp::export]]
-Rcpp::List Rsvd(arma::mat X, float alpha, int nd = NA_INTEGER, 
+Rcpp::List rSVDdpd(arma::mat X, float alpha, int nd = NA_INTEGER, 
                 double tol = 1e-4, double eps = 1e-4, int maxiter = 100) {
     
     
