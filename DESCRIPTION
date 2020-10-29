@@ -2,7 +2,7 @@ Package: rsvddpd
 Type: Package
 Encoding: UTF-8
 Title: Robust Singular Value Decomposition using Density Power Divergence
-Version: 1.0
+Version: 1.0.1
 Date: 2020-08-13
 Authors@R: c(person("Subhrajyoty", "Roy", email = "roysubhra98@gmail.com", role = c("aut", "cre")),
              person("Ayanendranath", "Basu", email = "ayanendranath.basu@gmail.com", role = "aut"),

@@ -139,6 +139,9 @@ Rcpp::List rSVDdpd(arma::mat X, float alpha, int nd = NA_INTEGER,
                     // check if fixed point criterion is met
                     fixed = (arma::norm((c - curr_c), 2) < eps) || (left_iter > maxiter);
                     
+                    // allow user interruption
+                    Rcpp::checkUserInterrupt();
+                    
                 } while (!fixed);
                 
                 // Need to apply Gram Schmidt
@@ -172,6 +175,9 @@ Rcpp::List rSVDdpd(arma::mat X, float alpha, int nd = NA_INTEGER,
                     // check if fixed point criterion is met
                     fixed = (arma::norm((d - curr_d), 2) < eps) || (right_iter > maxiter);
                     
+                    // allow user interruption
+                    Rcpp::checkUserInterrupt();
+            
                 } while (!fixed);
                 
                 
@@ -198,9 +204,7 @@ Rcpp::List rSVDdpd(arma::mat X, float alpha, int nd = NA_INTEGER,
                 
                 n_iter += 1;
                 // allow user interruption
-                if (n_iter % 10 == 0) {
-                    Rcpp::checkUserInterrupt();
-                }
+                Rcpp::checkUserInterrupt();
                 
                 // check if final convergence criteria is met
                 bool is_convl = ( std::abs(curr_lambda - arma::as_scalar(Lambda(r)) ) < eps );
