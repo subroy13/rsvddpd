@@ -7,3 +7,4 @@
 
 # rsvddpd 1.0.1
 - Minor bug fixes and addition of user interruption during iterations with longer execution time
+- Allowing robustness parameters beyond 1, with an issue of warning instead of stopping the execution.

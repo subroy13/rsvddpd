@@ -31,7 +31,8 @@
 #' of \eqn{L_2} norm, such estimation lacks efficiency. Application of density power
 #' divergence bridges the gap.
 #' \deqn{DPD(f|g) = \int f^{(1+\alpha)} - (1 + \frac{1}{\alpha}) \int f^{\alpha}g + \frac{1}{\alpha} \int g^{(1 + \alpha)} }
-#' The parameter \code{alpha} must be between 0 and 1, lower \code{alpha} means less robustness
+#' The parameter \code{alpha} should be between 0 and 1, if not, then a warning is shown.
+#' Lower \code{alpha} means less robustness
 #' but more efficiency in estimation, while higher \code{alpha} means high robustness but 
 #' less efficiency in estimation. The recommended value of \code{alpha} is 0.3.
 #' The function tries to obtain the best rank one approximation of a matrix by minimizing 
