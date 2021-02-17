@@ -14,8 +14,8 @@ robust way in presence of outliers.
 
 There are 2 primary functions in the package.
 
-  - rSVDdpd - Performs the robust SVD of a numeric matrix \(X\).
-  - simSVD - Simulates different scenarios to compare performances of
+-   rSVDdpd - Performs the robust SVD of a numeric matrix *X*.
+-   simSVD - Simulates different scenarios to compare performances of
     SVD algorithms under outlier contamination.
 
 ## Installation
@@ -64,11 +64,11 @@ svd(X)
 #> [5,] -0.69241905 -0.34721155 -0.4533325 -0.4400661
 ```
 
-As you can see, the first two singular values are \(53.5\) and \(2.36\),
-and the third and fourth singular values are very small positive reals.
+As you can see, the first two singular values are 53.5 and 2.36, and the
+third and fourth singular values are very small positive reals.
 
 Let us see what happens when you contaminate just one entry of the
-matrix by a large value say \(100\).
+matrix by a large value say 100.
 
 ``` r
 X[2, 3] <- 100
@@ -92,41 +92,36 @@ svd(X)
 #> [5,] -0.25048641 -0.7072836  0.294968703 -2.962457e-01
 ```
 
-Note that, the first singular value changes drastically, being \(107\),
-while second and third singular values \(36.1\) and \(2.2\)
-respectively. However, such error is very common in practice, and can
-pose serious problem in many statistical estimation techniques.
-`rSVDdpd` solves the problem as shown in the following code.
+Note that, the first singular value changes drastically, being 107,
+while second and third singular values 36.1 and 2.2 respectively.
+However, such error is very common in practice, and can pose serious
+problem in many statistical estimation techniques. `rSVDdpd` solves the
+problem as shown in the following code.
 
 ``` r
 rSVDdpd(X, alpha = 0.3)
 #> $d
-#> [1] 5.355987e+01 2.358922e+00 1.490800e-01 6.669382e-11
+#> [1] 5.355989e+01 2.358918e+00 1.491514e-01 6.683546e-11
 #> 
 #> $u
 #>           [,1]       [,2]       [,3]          [,4]
-#> [1,] 0.4426840 -0.7124313  0.4743877  2.672615e-01
-#> [2,] 0.4810534 -0.2588296 -0.8376126  2.693261e-07
-#> [3,] 0.5163466  0.1804030  0.2407992 -8.017834e-01
-#> [4,] 0.5531768  0.6268202  0.1240050  5.345228e-01
+#> [1,] 0.4426831 -0.7124339  0.4743848  2.672615e-01
+#> [2,] 0.4810563 -0.2588241 -0.8376126  2.693961e-07
+#> [3,] 0.5163457  0.1804020  0.2408020 -8.017834e-01
+#> [4,] 0.5531759  0.6268199  0.1240106  5.345228e-01
 #> 
 #> $v
 #>            [,1]        [,2]       [,3]          [,4]
-#> [1,] 0.09646647  0.77032225  0.2174810 -5.826532e-01
-#> [2,] 0.24532593  0.49133498  0.2200105  7.028018e-01
-#> [3,] 0.39606221  0.20321119 -0.8954552  5.534492e-07
-#> [4,] 0.54304962 -0.06663959  0.2250694  2.222097e-01
-#> [5,] 0.69191130 -0.34562688  0.2275988 -3.423562e-01
+#> [1,] 0.09646641  0.77032400  0.2174748 -5.827043e-01
+#> [2,] 0.24532584  0.49133673  0.2200067  7.029988e-01
+#> [3,] 0.39606282  0.20320392 -0.8954565  5.545135e-07
+#> [4,] 0.54304946 -0.06663784  0.2250703  2.218229e-01
+#> [5,] 0.69191112 -0.34562512  0.2276021 -3.421153e-01
 ```
 
-# Authors
+# Author and Maintainer
 
-  - Subhrajyoty Roy, Master of Statistics, Indian Statistical Institute,
-    Kolkata
-  - Ayanendranath Basu, Interdisciplinary Statistical Research Unit, ISI
-    Kolkata
-  - Abhik Ghosh, Interdisciplinary Statistical Research Unit, ISI
-    Kolkata
+-   Subhrajyoty Roy, Indian Statistical Institute, Kolkata
 
 # Getting help
 
@@ -134,7 +129,7 @@ If you encounter a clear bug, please file an issue with a minimal
 reproducible example on
 [GitHub](https://github.com/subroy13/rsvddpd/issues).
 
------
+------------------------------------------------------------------------
 
 This package is distributed under
 [MIT](https://github.com/subroy13/rsvddpd/blob/master/LICENSE.md)

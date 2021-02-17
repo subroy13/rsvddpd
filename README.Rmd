@@ -67,11 +67,9 @@ Note that, the first singular value changes drastically, being $107$, while seco
 rSVDdpd(X, alpha = 0.3)
 ```
 
-# Authors
+# Author and Maintainer
 
-- Subhrajyoty Roy, Master of Statistics, Indian Statistical Institute, Kolkata
-- Ayanendranath Basu, Interdisciplinary Statistical Research Unit, ISI Kolkata
-- Abhik Ghosh, Interdisciplinary Statistical Research Unit, ISI Kolkata
+- Subhrajyoty Roy, Indian Statistical Institute, Kolkata
 
 # Getting help
 
