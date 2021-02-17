@@ -3,10 +3,11 @@ Type: Package
 Encoding: UTF-8
 Title: Robust Singular Value Decomposition using Density Power Divergence
 Version: 1.0.1
-Date: 2020-08-13
+Date: 2021-02-17
 Authors@R: person("Subhrajyoty", "Roy", email = "roysubhra98@gmail.com", role = c("aut", "cre"))
-Description: This package performs robust singular value decomposition using the methods of
-    density power divergence. It combines the idea of robustness and efficiency in estimation
+Description: Computing singular value decomposition with robustness is a challenging task. 
+    This package provides an implementation of computing robust SVD using density power 
+    divergence. It combines the idea of robustness and efficiency in estimation
     based on a tuning parameter. It also provides utility functions to simulate various
     scenarios to compare performances of different algorithms.
 License: MIT + file LICENSE
