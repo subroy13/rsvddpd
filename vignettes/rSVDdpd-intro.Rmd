@@ -142,27 +142,17 @@ trueSVD <- list(d = c(10, 5, 3), u = U, v = V)  # true svd of the data matrix
 We can now call `simSVD` function to see the performance of usual SVD algorithm under contamination from outlier.
 
 ```{r results='hide'}
-res <- simSVD(trueSVD, svdfun = svd, B = 75, seed = 2021, outlier = TRUE, out_value = 25, tau = 0.9)
+res <- simSVD(trueSVD, svdfun = svd, B = 100, seed = 2021, outlier = TRUE, out_value = 25, tau = 0.9)
 ```
 
 ```{r}
 res
 ```
 
-Let us see how robust svd algorithm in `pcaMethods` package performs under this simulation.
+Now we compare `rSVDdpd` function's performance with the `svd` function.
 
 ```{r results='hide'}
-res <- simSVD(trueSVD, svdfun = pcaMethods::robustSvd, B = 75, seed = 2021, outlier = TRUE, out_value = 25, tau = 0.9)
-```
-
-```{r}
-res
-```
-
-`RobRSVD` package only provides the implementation of obtaining the first singular vector only. So instead of measuring performance of this, we compare `rSVDdpd` function's performance with the previous `svd` and `robustSvd` functions.
-
-```{r results='hide'}
-res <- simSVD(trueSVD, svdfun = rSVDdpd, B = 75, seed = 2021, outlier = TRUE, out_value = 25, tau = 0.9, alpha = 0.25)
+res <- simSVD(trueSVD, svdfun = rSVDdpd, B = 100, seed = 2021, outlier = TRUE, out_value = 25, tau = 0.9, alpha = 0.25)
 ```
 
 ```{r}
@@ -173,7 +163,7 @@ res
 And with $\alpha = 0.75$, we have;
 
 ```{r results='hide'}
-res <- simSVD(trueSVD, svdfun = rSVDdpd, B = 75, seed = 2021, outlier = TRUE, out_value = 25, tau = 0.9, alpha = 0.75)
+res <- simSVD(trueSVD, svdfun = rSVDdpd, B = 100, seed = 2021, outlier = TRUE, out_value = 25, tau = 0.9, alpha = 0.75)
 ```
 
 ```{r}
