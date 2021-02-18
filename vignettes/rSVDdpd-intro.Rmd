@@ -129,7 +129,7 @@ Therefore, the execution time slightly increases with higher $\alpha$.
 
 # Comparison with existing packages
 
-There are currently two packages `RobRSVD` and `pcaMethods`, which provide some implementation of a robust SVD algorithm. To compare performances of these algorithms with that of `Rsvd`, one can use `simSVD` function, which is used to simulate data matrices based on a model and then obtain an estimate of Bias and MSE of the estimates using a Monte Carlo approach.
+To compare performances of usual SVD algorithm with that of `rSVDdpd`, one can use `simSVD` function, which is used to simulate data matrices based on a model and then obtain an estimate of Bias and MSE of the estimates using a Monte Carlo approach.
 
 First, we create the true data matrix, with singular vectors taken from coefficients of orthogonal polynomials.
 

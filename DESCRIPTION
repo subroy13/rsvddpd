@@ -23,9 +23,7 @@ RoxygenNote: 7.1.1
 Suggests: 
     knitr,
     rmarkdown,
-    microbenchmark,
-    pcaMethods,
-    RobRSVD
+    microbenchmark
 VignetteBuilder: knitr
 URL: https://github.com/subroy13/rsvddpd
 BugReports: https://github.com/subroy13/rsvddpd/issues

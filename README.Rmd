@@ -72,6 +72,7 @@ rSVDdpd(X, alpha = 0.3)
 
 - Subhrajyoty Roy, Indian Statistical Institute, Kolkata
 
+
 # Getting help
 
 If you encounter a clear bug, please file an issue with a minimal reproducible example on [GitHub](https://github.com/subroy13/rsvddpd/issues).
