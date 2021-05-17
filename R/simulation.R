@@ -182,7 +182,9 @@ simSVD <- function(trueSVD, svdfun, B = 100, seed = NULL, dist = "normal", tau =
             lambdas[i, ] <- y$d[1:length(trueSVD$d)]
             left_score[i, ] <- 1 - abs( colSums(y$u[, 1:ncol(trueSVD$u)] * trueSVD$u) )
             right_score[i, ] <- 1 - abs( colSums(y$v[, 1:ncol(trueSVD$v)] * trueSVD$v) )
-        }, 
+        },
+        warning = function(cond) {
+        },
         error = function(cond) {
         })
         

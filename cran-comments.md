@@ -5,4 +5,12 @@
 
 ## R CMD check results
 
-There were no ERRORs, WARNINGs or NOTEs.
+There were no ERRORs or WARNINGs.
+There was 1 NOTE. According to [stackoverflow](https://stackoverflow.com/questions/64402688/information-on-o-files-for-x64-is-not-available-note-on-r-package-checks-using), this note is a false positive and can be ignored.
+
+## Resubmission
+This is a resubmission. In this version I have:
+
+* Updated the vignette to remove a demo from pcaMethods package.
+
+* Removed dependencies of RobRSVD and pcaMethods packages from DESCRIPTION file.

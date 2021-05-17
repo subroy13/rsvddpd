@@ -1,8 +1,8 @@
 ---
-title: "rSVDdpd-intro"
+title: "Introduction to rSVDdpd"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{rSVDdpd-intro}
+  %\VignetteIndexEntry{Introduction to rSVDdpd}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -18,6 +18,8 @@ knitr::opts_chunk$set(
 ```{r setup}
 library(rsvddpd)
 library(microbenchmark)
+library(matrixStats)
+library(pcaMethods)
 ```
 
 # Introduction
@@ -149,7 +151,18 @@ res <- simSVD(trueSVD, svdfun = svd, B = 100, seed = 2021, outlier = TRUE, out_v
 res
 ```
 
-Now we compare `rSVDdpd` function's performance with the `svd` function.
+Following is the performance of `robustSvd` function from `pcaMethods` package.
+
+```{r results='hide'}
+res <- simSVD(trueSVD, svdfun = pcaMethods::robustSvd, B = 100, seed = 2021, outlier = TRUE, out_value = 25, tau = 0.9)
+```
+
+```{r}
+res
+```
+
+
+Now we compare `rSVDdpd` function's performance with the other SVD implementations.
 
 ```{r results='hide'}
 res <- simSVD(trueSVD, svdfun = rSVDdpd, B = 100, seed = 2021, outlier = TRUE, out_value = 25, tau = 0.9, alpha = 0.25)
