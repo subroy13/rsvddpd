@@ -4,3 +4,5 @@ Meta
 .Rproj.user
 *.Rproj
 .Rhistory
+/doc/
+/Meta/
