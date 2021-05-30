@@ -14,6 +14,7 @@ knitr::opts_chunk$set(
 # rsvddpd
 
 <!-- badges: start -->
+[![Build Status](https://www.travis-ci.com/subroy13/rsvddpd.svg?branch=master)](https://www.travis-ci.com/subroy13/rsvddpd)
 <!-- badges: end -->
 
 The `R` package `rsvddpd` is an acronym for Robust Singular Value Decomposition using Density Power Divergence. As the name suggests, the package mainly concerns with a special function for performing SVD in a robust way in presence of outliers.
