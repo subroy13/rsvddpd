@@ -12,11 +12,13 @@ Decomposition using Density Power Divergence. As the name suggests, the
 package mainly concerns with a special function for performing SVD in a
 robust way in presence of outliers.
 
-There are 2 primary functions in the package.
+There are 3 primary functions in the package.
 
 -   rSVDdpd - Performs the robust SVD of a numeric matrix *X*.
 -   simSVD - Simulates different scenarios to compare performances of
     SVD algorithms under outlier contamination.
+-   cv.alpha - It computes the optimal robustness parameter *α* for the
+    `rSVDdpd` algorithm based on the data matrix *X*.
 
 ## Installation
 
@@ -101,22 +103,22 @@ problem as shown in the following code.
 ``` r
 rSVDdpd(X, alpha = 0.3)
 #> $d
-#> [1] 5.355988e+01 2.358919e+00 1.491240e-01 6.679025e-11
+#> [1] 5.355988e+01 2.358920e+00 1.491150e-01 6.676196e-11
 #> 
 #> $u
 #>           [,1]       [,2]       [,3]          [,4]
-#> [1,] 0.4426835 -0.7124329  0.4743859  2.672615e-01
-#> [2,] 0.4810552 -0.2588262 -0.8376126  2.694772e-07
-#> [3,] 0.5163460  0.1804024  0.2408009 -8.017834e-01
-#> [4,] 0.5531763  0.6268200  0.1240084  5.345228e-01
+#> [1,] 0.4426836 -0.7124326  0.4743863  2.672615e-01
+#> [2,] 0.4810549 -0.2588269 -0.8376126  2.693701e-07
+#> [3,] 0.5163462  0.1804025  0.2408006 -8.017834e-01
+#> [4,] 0.5531764  0.6268200  0.1240077  5.345228e-01
 #> 
 #> $v
 #>            [,1]        [,2]       [,3]          [,4]
-#> [1,] 0.09646644  0.77032333  0.2174772 -5.826874e-01
-#> [2,] 0.24532587  0.49133606  0.2200082  7.029334e-01
-#> [3,] 0.39606258  0.20320671 -0.8954560  5.541357e-07
-#> [4,] 0.54304952 -0.06663851  0.2250699  2.219514e-01
-#> [5,] 0.69191119 -0.34562580  0.2276008 -3.421953e-01
+#> [1,] 0.09646644  0.77032311  0.2174780 -5.826763e-01
+#> [2,] 0.24532588  0.49133584  0.2200086  7.028908e-01
+#> [3,] 0.39606251  0.20320763 -0.8954558  5.539396e-07
+#> [4,] 0.54304954 -0.06663873  0.2250698  2.220349e-01
+#> [5,] 0.69191121 -0.34562602  0.2276004 -3.422474e-01
 ```
 
 # Author and Maintainer

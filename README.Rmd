@@ -19,10 +19,11 @@ knitr::opts_chunk$set(
 
 The `R` package `rsvddpd` is an acronym for Robust Singular Value Decomposition using Density Power Divergence. As the name suggests, the package mainly concerns with a special function for performing SVD in a robust way in presence of outliers.
 
-There are 2 primary functions in the package.
+There are 3 primary functions in the package.
 
 * rSVDdpd - Performs the robust SVD of a numeric matrix $X$.
 * simSVD - Simulates different scenarios to compare performances of SVD algorithms under outlier contamination.
+* cv.alpha - It computes the optimal robustness parameter $\alpha$ for the `rSVDdpd` algorithm based on the data matrix $X$.
 
 
 ## Installation

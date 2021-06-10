@@ -2,52 +2,8 @@
 #include "RcppArmadillo.h"
 // [[Rcpp::depends(RcppArmadillo)]]
 
-
-//' Robust Singular Value Decomposition using Density Power Divergence
-//'
-//' \code{rSVDdpd} returns the singular value decomposition of a matrix with robust
-//' singular values in presence of outliers
-//' 
-//' @param X \code{matrix}, whose singular value decomposition is required
-//' @param alpha \code{numeric}, robustness parameter between 0 and 1. See details for more.
-//' @param nd \code{integer}, must be lower than \code{nrow(X)} and \code{ncol(X)} both. If 
-//' NA, defaults to \code{min(nrow(X), ncol(X))} 
-//' @param tol \code{numeric}, a tolerance level. If the residual matrix has lower 
-//' norm than this, then subsequent singular values will be taken as 0.
-//' @param eps \code{numeric}, a tolerance level for the convergence of singular 
-//' vectors. If in subsequent iterations the singular vectors do not change its 
-//' norm beyond this, then the iteration will stop.
-//' @param maxiter \code{integer}, upper limit to the maximum number of iterations.
-//' 
-//' @return A list containing different components of the decomposition \eqn{X = U D V'}
-//' \itemize{
-//' \item d - The robust singular values, namely the diagonal entries of \eqn{D}.
-//' \item u - The matrix of left singular vectors \eqn{U}. Each column is a singular vector.
-//' \item v - The matrix of right singular vectors \eqn{V}. Each column is a singular vector.
-//' }
-//' 
-//' @details The usual singular value decomposition is highly prone to error in 
-//' presence of outliers, since it tries to minimize the \eqn{L_2} norm of the errors
-//' between the matrix \eqn{X} and its best lower rank approximation. While there is
-//' considerable effort to impose robustness using \eqn{L_1} norm of the errors instead
-//' of \eqn{L_2} norm, such estimation lacks efficiency. Application of density power
-//' divergence bridges the gap.
-//' \deqn{DPD(f|g) = \int f^{(1+\alpha)} - (1 + \frac{1}{\alpha}) \int f^{\alpha}g + \frac{1}{\alpha} \int g^{(1 + \alpha)} }
-//' The parameter \code{alpha} should be between 0 and 1, if not, then a warning is shown.
-//' Lower \code{alpha} means less robustness
-//' but more efficiency in estimation, while higher \code{alpha} means high robustness but 
-//' less efficiency in estimation. The recommended value of \code{alpha} is 0.3.
-//' The function tries to obtain the best rank one approximation of a matrix by minimizing 
-//' this density power divergence of the true errors with that of a normal distribution centered
-//' at the origin.  
-//' 
-//' @seealso \code{\link{svd}}
-//' @export
-//' @examples
-//' X = matrix(1:20, nrow = 4, ncol = 5)
-//' rSVDdpd(X, alpha = 0.3)
-// [[Rcpp::export]]
-Rcpp::List rSVDdpd(arma::mat X, float alpha, int nd = NA_INTEGER, 
+// [[Rcpp::export(.rSVDdpd_cpp)]]
+Rcpp::List rSVDdpd_cpp(arma::mat X, float alpha, arma::mat A, arma::mat B, int nd = NA_INTEGER, 
                 double tol = 1e-4, double eps = 1e-4, int maxiter = 100) {
     
     
@@ -88,16 +44,8 @@ Rcpp::List rSVDdpd(arma::mat X, float alpha, int nd = NA_INTEGER,
     arma::vec scale_factors = arma::quantile(arma::vectorise(X), P);
     X = X / (scale_factors(1) - scale_factors(0));
     
-    // Choose random matrix to initialize
-    arma::mat A = arma::randu(X.n_rows, rank);
-    arma::mat B = arma::randu(X.n_cols, rank);
-    
-    for (int i = 0; i < rank; i++) {
-        A.col(i) /= arma::norm(A.col(i), 2);
-        B.col(i) /= arma::norm(B.col(i), 2);
-    }
-    
     arma::vec Lambda = arma::zeros(rank);
+    arma::vec maxit_reached = arma::zeros(max_rank);
 
     // Iteration through the singular values
     for (int r = 0; r < max_rank; r++) {
@@ -139,6 +87,9 @@ Rcpp::List rSVDdpd(arma::mat X, float alpha, int nd = NA_INTEGER,
                     
                     // check if fixed point criterion is met
                     fixed = (arma::norm((c - curr_c), 2) < eps) || (left_iter > maxiter);
+                    if (left_iter > maxiter) {
+                        maxit_reached(r) = 1;
+                    }
                     
                     // allow user interruption
                     Rcpp::checkUserInterrupt();
@@ -176,6 +127,10 @@ Rcpp::List rSVDdpd(arma::mat X, float alpha, int nd = NA_INTEGER,
                     // check if fixed point criterion is met
                     fixed = (arma::norm((d - curr_d), 2) < eps) || (right_iter > maxiter);
                     
+                    if (right_iter > maxiter) {
+                        maxit_reached(r) = 1;
+                    }
+                    
                     // allow user interruption
                     Rcpp::checkUserInterrupt();
             
@@ -201,9 +156,8 @@ Rcpp::List rSVDdpd(arma::mat X, float alpha, int nd = NA_INTEGER,
                     sigma = 1e-1;
                 }
                 
-                sigma = 1;
-                
                 n_iter += 1;
+                
                 // allow user interruption
                 Rcpp::checkUserInterrupt();
                 
@@ -213,8 +167,12 @@ Rcpp::List rSVDdpd(arma::mat X, float alpha, int nd = NA_INTEGER,
                 bool is_convb = ( arma::norm(curr_b - B.col(r), 2) < eps );
                 
                 is_converged = (n_iter > maxiter) || (is_convl && is_conva && is_convb);
+                if (n_iter > maxiter) {
+                    maxit_reached(r) = 1;
+                }
                 
-                // Update the current values
+                // Update the values
+                sigma = 1;
                 Lambda(r) = curr_lambda;
                 A.col(r) = curr_a;
                 B.col(r) = curr_b;
@@ -224,6 +182,7 @@ Rcpp::List rSVDdpd(arma::mat X, float alpha, int nd = NA_INTEGER,
             // One singular value obtain, proceed to the next
             X = X - Lambda(r) * A.col(r) * B.col(r).t();
             curr_norm = arma::norm(X, 2);
+            
         }
     }
     
@@ -232,7 +191,8 @@ Rcpp::List rSVDdpd(arma::mat X, float alpha, int nd = NA_INTEGER,
     
     Rcpp::List L = Rcpp::List::create(Rcpp::Named("d") = Lambda.subvec(0,max_rank-1), 
                                       Rcpp::Named("u") = A.cols(0, max_rank - 1),
-                                      Rcpp::Named("v") = B.cols(0, max_rank - 1));
+                                      Rcpp::Named("v") = B.cols(0, max_rank - 1),
+                                      Rcpp::Named("maxitreach") = maxit_reached.subvec(0,max_rank-1) );
     
     return(L);
 }

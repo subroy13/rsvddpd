@@ -6,25 +6,27 @@
 
 using namespace Rcpp;
 
-// rSVDdpd
-Rcpp::List rSVDdpd(arma::mat X, float alpha, int nd, double tol, double eps, int maxiter);
-RcppExport SEXP _rsvddpd_rSVDdpd(SEXP XSEXP, SEXP alphaSEXP, SEXP ndSEXP, SEXP tolSEXP, SEXP epsSEXP, SEXP maxiterSEXP) {
+// rSVDdpd_cpp
+Rcpp::List rSVDdpd_cpp(arma::mat X, float alpha, arma::mat A, arma::mat B, int nd, double tol, double eps, int maxiter);
+RcppExport SEXP _rsvddpd_rSVDdpd_cpp(SEXP XSEXP, SEXP alphaSEXP, SEXP ASEXP, SEXP BSEXP, SEXP ndSEXP, SEXP tolSEXP, SEXP epsSEXP, SEXP maxiterSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< arma::mat >::type X(XSEXP);
     Rcpp::traits::input_parameter< float >::type alpha(alphaSEXP);
+    Rcpp::traits::input_parameter< arma::mat >::type A(ASEXP);
+    Rcpp::traits::input_parameter< arma::mat >::type B(BSEXP);
     Rcpp::traits::input_parameter< int >::type nd(ndSEXP);
     Rcpp::traits::input_parameter< double >::type tol(tolSEXP);
     Rcpp::traits::input_parameter< double >::type eps(epsSEXP);
     Rcpp::traits::input_parameter< int >::type maxiter(maxiterSEXP);
-    rcpp_result_gen = Rcpp::wrap(rSVDdpd(X, alpha, nd, tol, eps, maxiter));
+    rcpp_result_gen = Rcpp::wrap(rSVDdpd_cpp(X, alpha, A, B, nd, tol, eps, maxiter));
     return rcpp_result_gen;
 END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_rsvddpd_rSVDdpd", (DL_FUNC) &_rsvddpd_rSVDdpd, 6},
+    {"_rsvddpd_rSVDdpd_cpp", (DL_FUNC) &_rsvddpd_rSVDdpd_cpp, 8},
     {NULL, NULL, 0}
 };
 
