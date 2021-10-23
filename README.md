@@ -10,7 +10,8 @@ Status](https://www.travis-ci.com/subroy13/rsvddpd.svg?branch=master)](https://w
 The `R` package `rsvddpd` is an acronym for Robust Singular Value
 Decomposition using Density Power Divergence. As the name suggests, the
 package mainly concerns with a special function for performing SVD in a
-robust way in presence of outliers.
+robust way in presence of outliers. The details of the algorithm can be
+found in the paper <https://arxiv.org/abs/2109.10680>.
 
 There are 3 primary functions in the package.
 
@@ -103,27 +104,30 @@ problem as shown in the following code.
 ``` r
 rSVDdpd(X, alpha = 0.3)
 #> $d
-#> [1] 5.355988e+01 2.358920e+00 1.491150e-01 6.676196e-11
+#> [1] 5.355989e+01 2.358919e+00 1.491355e-01 6.682116e-11
 #> 
 #> $u
 #>           [,1]       [,2]       [,3]          [,4]
-#> [1,] 0.4426836 -0.7124326  0.4743863  2.672615e-01
-#> [2,] 0.4810549 -0.2588269 -0.8376126  2.693701e-07
-#> [3,] 0.5163462  0.1804025  0.2408006 -8.017834e-01
-#> [4,] 0.5531764  0.6268200  0.1240077  5.345228e-01
+#> [1,] 0.4426833 -0.7124333  0.4743854  2.672615e-01
+#> [2,] 0.4810557 -0.2588254 -0.8376126  2.695529e-07
+#> [3,] 0.5163459  0.1804022  0.2408014 -8.017834e-01
+#> [4,] 0.5531761  0.6268200  0.1240093  5.345228e-01
 #> 
 #> $v
 #>            [,1]        [,2]       [,3]          [,4]
-#> [1,] 0.09646644  0.77032311  0.2174780 -5.826763e-01
-#> [2,] 0.24532588  0.49133584  0.2200086  7.028908e-01
-#> [3,] 0.39606251  0.20320763 -0.8954558  5.539396e-07
-#> [4,] 0.54304954 -0.06663873  0.2250698  2.220349e-01
-#> [5,] 0.69191121 -0.34562602  0.2276004 -3.422474e-01
+#> [1,] 0.09646643  0.77032361  0.2174762 -5.826996e-01
+#> [2,] 0.24532586  0.49133634  0.2200075  7.029805e-01
+#> [3,] 0.39606268  0.20320554 -0.8954562  5.543331e-07
+#> [4,] 0.54304950 -0.06663823  0.2250701  2.218590e-01
+#> [5,] 0.69191116 -0.34562551  0.2276013 -3.421378e-01
 ```
 
-# Author and Maintainer
+# Author
 
--   Subhrajyoty Roy, Indian Statistical Institute, Kolkata
+-   Subhrajyoty Roy, Indian Statistical Institute, Kolkata (Package
+    author and Maintainer)
+-   Ayanendranath Basu, Indian Statistical Institute, Kolkata
+-   Abhik Ghosh, Indian Statistical Institute, Kolkata
 
 # Getting help
 

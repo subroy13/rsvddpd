@@ -37,7 +37,8 @@
 #' The function tries to obtain the best rank one approximation of a matrix by minimizing 
 #' this density power divergence of the true errors with that of a normal distribution centered
 #' at the origin.  
-#' 
+#' @references S. Roy, A. Basu and A. Ghosh (2021), A New Robust Scalable Singular Value Decomposition Algorithm for Video Surveillance Background Modelling
+#' \url{https://arxiv.org/abs/2109.10680}
 #' @seealso \code{\link{svd}}
 #' @export
 #' @examples
@@ -85,7 +86,16 @@ rSVDdpd <- function(X, alpha, nd = NA, tol = 1e-4, eps = 1e-4, maxiter = 100L, i
 #' \code{cv.alpha} returns the optimal robustness parameter
 #' @param X \code{matrix}, whose singular value decomposition is required
 #' @param alphas \code{numeric vector}, vector of robustness parameters to try.
-#'
+#' @references S. Roy, A. Basu and A. Ghosh (2021), A New Robust Scalable Singular Value Decomposition Algorithm for Video Surveillance Background Modelling
+#' \url{https://arxiv.org/abs/2109.10680}
+#' 
+#' @return A list containing
+#' \itemize{
+#' \item The choices of the robust parameters.
+#' \item Corresponding cross validation score.
+#' \item Best choice of the robustness parameter.
+#' }
+#' 
 #' @export
 cv.alpha <- function(X, alphas = 10) {
     n <- nrow(X)

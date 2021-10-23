@@ -68,6 +68,10 @@ at the origin.
 X = matrix(1:20, nrow = 4, ncol = 5)
 rSVDdpd(X, alpha = 0.3)
 }
+\references{
+S. Roy, A. Basu and A. Ghosh (2021), A New Robust Scalable Singular Value Decomposition Algorithm for Video Surveillance Background Modelling
+\url{https://arxiv.org/abs/2109.10680}
+}
 \seealso{
 \code{\link{svd}}
 }

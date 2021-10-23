@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 [![Build Status](https://www.travis-ci.com/subroy13/rsvddpd.svg?branch=master)](https://www.travis-ci.com/subroy13/rsvddpd)
 <!-- badges: end -->
 
-The `R` package `rsvddpd` is an acronym for Robust Singular Value Decomposition using Density Power Divergence. As the name suggests, the package mainly concerns with a special function for performing SVD in a robust way in presence of outliers.
+The `R` package `rsvddpd` is an acronym for Robust Singular Value Decomposition using Density Power Divergence. As the name suggests, the package mainly concerns with a special function for performing SVD in a robust way in presence of outliers. The details of the algorithm can be found in the paper [https://arxiv.org/abs/2109.10680](https://arxiv.org/abs/2109.10680).
 
 There are 3 primary functions in the package.
 
@@ -68,9 +68,11 @@ Note that, the first singular value changes drastically, being $107$, while seco
 rSVDdpd(X, alpha = 0.3)
 ```
 
-# Author and Maintainer
+# Author
 
-- Subhrajyoty Roy, Indian Statistical Institute, Kolkata
+- Subhrajyoty Roy, Indian Statistical Institute, Kolkata (Package author and Maintainer)
+- Ayanendranath Basu, Indian Statistical Institute, Kolkata
+- Abhik Ghosh, Indian Statistical Institute, Kolkata
 
 
 # Getting help

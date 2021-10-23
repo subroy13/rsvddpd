@@ -11,6 +11,18 @@ cv.alpha(X, alphas = 10)
 
 \item{alphas}{\code{numeric vector}, vector of robustness parameters to try.}
 }
+\value{
+A list containing
+\itemize{
+\item The choices of the robust parameters.
+\item Corresponding cross validation score.
+\item Best choice of the robustness parameter.
+}
+}
 \description{
 \code{cv.alpha} returns the optimal robustness parameter
+}
+\references{
+S. Roy, A. Basu and A. Ghosh (2021), A New Robust Scalable Singular Value Decomposition Algorithm for Video Surveillance Background Modelling
+\url{https://arxiv.org/abs/2109.10680}
 }
