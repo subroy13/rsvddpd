@@ -7,9 +7,9 @@ Date: 2021-10-23
 Authors@R: person("Subhrajyoty", "Roy", email = "subhrajyotyroy@gmail.com", role = c("aut", "cre"))
 Description: Computing singular value decomposition with robustness is a challenging task. 
     This package provides an implementation of computing robust SVD using density power 
-    divergence. It combines the idea of robustness and efficiency in estimation
+    divergence (<arXiv:2109.10680>). It combines the idea of robustness and efficiency in estimation
     based on a tuning parameter. It also provides utility functions to simulate various
-    scenarios to compare performances of different algorithms. (https://arxiv.org/abs/2109.10680)
+    scenarios to compare performances of different algorithms.
 License: MIT + file LICENSE
 Imports: 
     Rcpp (>= 1.0.5),
