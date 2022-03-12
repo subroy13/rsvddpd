@@ -13,4 +13,6 @@ This is a resubmission. In this version I have:
 
 * Updated the vignette to remove a demo from pcaMethods package.
 * Removed dependencies of RobRSVD and pcaMethods packages from DESCRIPTION file.
-* Provided a reference to the algorithm used to compute the decomposition.
+* Provided a reference to the algorithm used to compute the decomposition. 
+* Set up github action R CMD checks.
+* Changed the url text appropriately.
