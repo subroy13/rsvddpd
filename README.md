@@ -4,6 +4,10 @@
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/subroy13/rsvddpd/workflows/R-CMD-check/badge.svg)](https://github.com/subroy13/rsvddpd/actions)
+[![](https://cranlogs.r-pkg.org/badges/grand-total/rsvddpd)](https://cran.r-project.org/package=rsvddpd)
+[![](https://cranlogs.r-pkg.org/badges/rsvddpd)](https://cran.r-project.org/package=rsvddpd)
+[![](https://cranlogs.r-pkg.org/badges/last-day/rsvddpd)](https://cran.r-project.org/package=rsvddpd)
+
 <!-- badges: end -->
 
 The `R` package `rsvddpd` is an acronym for Robust Singular Value
