@@ -1,5 +1,9 @@
 ## Test environments
-* local macOS-arm64 R 4.5.1
+* local macOS-arm64 (R 4.5.1)
+* GitHub Actions:
+    * macOS-latest (R release)
+    * windows-latest (R release)
+    * ubuntu-latest (R devel, release, oldrel-1)
 
 ## R CMD check results
 There were no ERRORs, WARNINGs, or NOTEs.
