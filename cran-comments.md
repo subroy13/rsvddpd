@@ -1,18 +1,27 @@
 ## Test environments
-* local R installation, R 4.0.2
-* ubuntu 16.04 (on travis-ci), R 4.0.2
-* win-builder (devel)
+* local macOS-arm64 R 4.5.1
 
 ## R CMD check results
-
-There were no ERRORs or WARNINGs.
-There was 2 NOTEs. According to [stackoverflow](https://stackoverflow.com/questions/64402688/information-on-o-files-for-x64-is-not-available-note-on-r-package-checks-using), this note is a false positive and can be ignored.
+There were no ERRORs, WARNINGs, or NOTEs.
 
 ## Resubmission
-This is a resubmission. In this version I have:
+This is a resubmission to address a NOTE from the CRAN team.
 
-* Updated the vignette to remove a demo from pcaMethods package.
-* Removed dependencies of RobRSVD and pcaMethods packages from DESCRIPTION file.
-* Provided a reference to the algorithm used to compute the decomposition. 
-* Set up github action R CMD checks.
-* Changed the url text appropriately.
+In this version I have:
+
+*   Removed the explicit `CXX_STD = CXX11` specification from `src/Makevars` and `src/Makevars.win` as requested. The package now uses the default C++ standard provided by R, which resolves the compatibility issue with `RcppArmadillo`.
+
+*   Added a new function `rank.rSVDdpd` which is used to determine the rank for matrix factorization. 
+
+*   Introduced a new argument `maxrank` to the `rSVDdpd` function for automatic matrix rank determination.
+
+*   Updated the vignettes accordingly to reflect the changes due to modification of `rSVDdpd` function.
+
+*   Updated the `DESCRIPTION` file:
+    *   Incremented the package version to `1.0.1`.
+    *   Updated the DOI identifier of arXiv paper to resolve another NOTE.
+    *   Added `V8` to `Suggests` to resolve a NOTE about math rendering in vignettes.
+
+*   Updated the `NEWS.md` file to reflect the changes in this version.
+
+Thank you for your consideration.

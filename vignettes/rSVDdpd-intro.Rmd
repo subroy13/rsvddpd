@@ -55,7 +55,7 @@ All the singular values are now much different, being $101.4, 18.3$ and $1.14$. 
 On the other hand, using `rSVDdpd` function from `rsvddpd` package enables us a mitigate the effect of this outlier.
 
 ```{r}
-rSVDdpd(X, alpha = 0.3)
+rSVDdpd(X, alpha = 0.3, nd = min(dim(X)))
 ```
 
 Since the function does some randomized initialization under the hood, the result might not be exactly same when you run the code again. However, you should get the singular values pretty close to the singular values of the original $X$ before we added the outlier.
@@ -87,8 +87,8 @@ with respect to the unknowns $\lambda, a_i, b_j$ and $\sigma^2$, where $\phi(\cd
 Because of the usage of standard normal density, and exponential functions, the usual algorithm suffers from underflow and overflow and the estimates tend to become `NAN` or `Inf` in some iterations for reasonably large or reasonably small values in the data matrix. To deal with this, `rSVDdpd` function first scales all elements of the data matrix to a suitable range, and then perform the robust SVD algorithm. Finally, the scaling factor can be adjusted to obtain the original singular values.
 
 ```{r}
-rSVDdpd(X * 1e6, alpha  = 0.3)
-rSVDdpd(X * 1e-6, alpha = 0.3)
+rSVDdpd(X * 1e6, alpha  = 0.3, nd = min(dim(X)))
+rSVDdpd(X * 1e-6, alpha = 0.3, nd = min(dim(X)))
 ```
 
 As it can be seen, the function `rSVDdpd` handles the very large or very small elements nicely.
@@ -97,7 +97,7 @@ As it can be seen, the function `rSVDdpd` handles the very large or very small e
 
 ```{r}
 Y <- X[, c(3, 1, 2)]
-rSVDdpd(Y, alpha = 0.3)
+rSVDdpd(Y, alpha = 0.3, nd = min(dim(Y)))
 ```
 
 As expected, the singular values do not change when the columns of the data matrix is permuted, however, the singular vector permutes in the same manner of the permutation of the columns.
@@ -107,7 +107,7 @@ As expected, the singular values do not change when the columns of the data matr
 An important property of SVD is that the matrix corresponding to the left and right singular vectors are orthogonal matrices. A sanity check of this property can also be verified very easily.
 
 ```{r}
-crossprod(rSVDdpd(X, alpha = 0.3)$u)
+crossprod(rSVDdpd(X, alpha = 0.3, nd = min(dim(X)))$u)
 ```
 
 As it seems, the off diagonal entries are very small values. This is ensured by introducing a Gram Schimdt Orthogonalization step between successive iterations of the algorithm.
@@ -120,9 +120,12 @@ In presence of outliers with large deviation, the performance of `rSVDdpd` is fa
 To demonstrate the effect of $\alpha$ on time complexity, `microbenchmark` package will be used. 
 
 ```{r}
-microbenchmark::microbenchmark(svd(X), rSVDdpd(X, alpha = 0), rSVDdpd(X, alpha = 0.25), 
-                               rSVDdpd(X, alpha = 0.5), rSVDdpd(X, alpha = 0.75), 
-                               rSVDdpd(X, alpha = 1), times = 30)
+microbenchmark::microbenchmark(svd(X), 
+                               rSVDdpd(X, alpha = 0, nd = min(dim(X))), 
+                               rSVDdpd(X, alpha = 0.25, nd = min(dim(X))), 
+                               rSVDdpd(X, alpha = 0.5, nd = min(dim(X))), 
+                               rSVDdpd(X, alpha = 0.75, nd = min(dim(X))), 
+                               rSVDdpd(X, alpha = 1, nd = min(dim(X))), times = 30)
 ```
 
 Therefore, the execution time slightly increases with higher $\alpha$.
@@ -165,7 +168,10 @@ res
 Now we compare `rSVDdpd` function's performance with the other SVD implementations.
 
 ```{r results='hide'}
-res <- simSVD(trueSVD, svdfun = rSVDdpd, B = 100, seed = 2021, outlier = TRUE, out_value = 25, tau = 0.9, alpha = 0.25)
+rSVDdpd_max <- function(X, alpha) {
+  return(rSVDdpd(X, alpha = alpha, nd = min(dim(X))))
+}
+res <- simSVD(trueSVD, svdfun = rSVDdpd_max, B = 100, seed = 2021, outlier = TRUE, out_value = 25, tau = 0.9, alpha = 0.25)
 ```
 
 ```{r}
@@ -176,7 +182,7 @@ res
 And with $\alpha = 0.75$, we have;
 
 ```{r results='hide'}
-res <- simSVD(trueSVD, svdfun = rSVDdpd, B = 100, seed = 2021, outlier = TRUE, out_value = 25, tau = 0.9, alpha = 0.75)
+res <- simSVD(trueSVD, svdfun = rSVDdpd_max, B = 100, seed = 2021, outlier = TRUE, out_value = 25, tau = 0.9, alpha = 0.75)
 ```
 
 ```{r}

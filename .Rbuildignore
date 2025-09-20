@@ -7,3 +7,7 @@
 ^cran-comments\.md$
 ^CRAN-RELEASE$
 ^\.github$
+^\.git$
+^\.gitignore$
+^\.lintr$
+^developer\.md$

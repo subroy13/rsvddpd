@@ -2,12 +2,14 @@ Package: rsvddpd
 Type: Package
 Encoding: UTF-8
 Title: Robust Singular Value Decomposition using Density Power Divergence
-Version: 1.0.0
-Date: 2021-10-23
+Version: 1.0.1
+Date: 2025-09-18
+Author: Subhrajyoty Roy [aut, cre]
+Maintainer: Subhrajyoty Roy <subhrajyotyroy@gmail.com>
 Authors@R: person("Subhrajyoty", "Roy", email = "subhrajyotyroy@gmail.com", role = c("aut", "cre"))
 Description: Computing singular value decomposition with robustness is a challenging task. 
     This package provides an implementation of computing robust SVD using density power 
-    divergence (<arXiv:2109.10680>). It combines the idea of robustness and efficiency in estimation
+    divergence (<doi:10.48550/arXiv.2109.10680>). It combines the idea of robustness and efficiency in estimation
     based on a tuning parameter. It also provides utility functions to simulate various
     scenarios to compare performances of different algorithms.
 License: MIT + file LICENSE
@@ -20,12 +22,13 @@ Imports:
 LinkingTo: 
     Rcpp, 
     RcppArmadillo
-RoxygenNote: 7.1.1
+RoxygenNote: 7.3.2
 Suggests: 
     knitr,
     rmarkdown,
     microbenchmark,
-    pcaMethods
+    pcaMethods,
+    V8
 VignetteBuilder: knitr
 URL: https://github.com/subroy13/rsvddpd
 BugReports: https://github.com/subroy13/rsvddpd/issues

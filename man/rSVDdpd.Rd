@@ -8,6 +8,7 @@ rSVDdpd(
   X,
   alpha,
   nd = NA,
+  maxrank = NA,
   tol = 1e-04,
   eps = 1e-04,
   maxiter = 100L,
@@ -20,8 +21,9 @@ rSVDdpd(
 
 \item{alpha}{\code{numeric}, robustness parameter between 0 and 1. See details for more.}
 
-\item{nd}{\code{integer}, must be lower than \code{nrow(X)} and \code{ncol(X)} both. If 
-NA, defaults to \code{min(nrow(X), ncol(X))}}
+\item{nd}{\code{integer}, must be lower than \code{nrow(X)} and \code{ncol(X)} both. If NA, determined by \code{rank.rSVDdpd(X, alpha, maxrank)}}
+
+\item{maxrank}{\code{integer}, maximum rank to be considered if \code{nd} is not specified. If NA, defaults to \code{min(nrow(X), ncol(X))}}
 
 \item{tol}{\code{numeric}, a tolerance level. If the residual matrix has lower 
 norm than this, then subsequent singular values will be taken as 0.}
@@ -73,5 +75,5 @@ S. Roy, A. Basu and A. Ghosh (2021), A New Robust Scalable Singular Value Decomp
 \url{https://arxiv.org/abs/2109.10680}
 }
 \seealso{
-\code{\link{svd}}
+\code{\link{rank.rSVDdpd}}, \code{\link{svd}}
 }
